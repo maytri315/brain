@@ -18,7 +18,7 @@ def run_mutation(pdb_path, chain_id, res_num, target_amino):
     """
     try:
         # 1. Determine file type and parse
-        if pdb_path.endswith('.cif'):
+        if pdb_path.endswith('.cif') or 'data_' in open(pdb_path).readline():
             parser = MMCIFParser(QUIET=True)
         else:
             parser = PDBParser(QUIET=True)
@@ -76,5 +76,5 @@ def run_mutation(pdb_path, chain_id, res_num, target_amino):
 if __name__ == "__main__":
     # Test block for local execution
     print("Running local test...")
-    test_result = run_mutation("data/sample.pdb", "A", 10, "ALA")
+    test_result = run_mutation("../../sample.pdb", "A", 10, "ALA")
     print(test_result)
