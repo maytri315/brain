@@ -1,6 +1,8 @@
+/* purgecss start ignore */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* purgecss end ignore */
 
 /* Ensure the background stays dark */
 html, body, #root {
