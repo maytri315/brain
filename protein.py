@@ -48,4 +48,4 @@ def mutate_and_analyze(pdb_file, chain_id, res_id, new_res):
     print(f"Result saved to 'mutated_protein.pdb'")
 
 # Test it
-mutate_and_analyze("c:/brain/sample.pdb", "A", 10, "ALA")
+mutate_and_analyze("sample.pdb", "A", 10, "ALA")
