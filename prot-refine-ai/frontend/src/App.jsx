@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as NGL from 'ngl';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 const ProteinDashboard = () => {
   const [result, setResult] = useState(null);
   const [prompt, setPrompt] = useState("");
@@ -84,7 +86,7 @@ const ProteinDashboard = () => {
     const loadInitialStructure = async () => {
       try {
         console.log('Loading initial structure...');
-        const response = await fetch('http://localhost:8000/mutate?prompt=mutate%20GLY10%20to%20GLY%20in%20chain%20A');
+        const response = await fetch(`${API_BASE_URL}/mutate?prompt=mutate%20GLY10%20to%20GLY%20in%20chain%20A`);
         console.log('Initial response status:', response.status);
         const data = await response.json();
         console.log('Initial data:', data);
@@ -92,7 +94,7 @@ const ProteinDashboard = () => {
         if (data && data.file) {
           // Load the exported PDB file
           console.log('Loading initial file:', data.file);
-          const pdbResponse = await fetch(`http://localhost:8000/exports/${data.file}`);
+          const pdbResponse = await fetch(`${API_BASE_URL}/exports/${data.file}`);
           console.log('Initial PDB response status:', pdbResponse.status);
           if (pdbResponse.ok) {
             const pdbData = await pdbResponse.text();
@@ -105,7 +107,7 @@ const ProteinDashboard = () => {
         } else {
           console.warn('No file in initial response, using sample data');
           // Load sample.pdb directly
-          const sampleResponse = await fetch('http://localhost:8000/exports/sample.pdb');
+          const sampleResponse = await fetch(`${API_BASE_URL}/exports/sample.pdb`);
           console.log('Sample response status:', sampleResponse.status);
           if (sampleResponse.ok) {
             const pdbData = await sampleResponse.text();
@@ -134,7 +136,7 @@ const ProteinDashboard = () => {
     setResult(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/mutate?prompt=${encodeURIComponent(prompt)}`);
+      const response = await fetch(`${API_BASE_URL}/mutate?prompt=${encodeURIComponent(prompt)}`);
       const data = await response.json();
 
       if (data.error) {
@@ -147,7 +149,7 @@ const ProteinDashboard = () => {
       if (data.file) {
         // Load the mutated structure
         console.log('Loading file:', data.file);
-        const pdbResponse = await fetch(`http://localhost:8000/exports/${data.file}`);
+        const pdbResponse = await fetch(`${API_BASE_URL}/exports/${data.file}`);
         console.log('PDB response status:', pdbResponse.status);
         if (pdbResponse.ok) {
           const pdbData = await pdbResponse.text();

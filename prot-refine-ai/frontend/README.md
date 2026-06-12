@@ -1,16 +1,29 @@
-# React + Vite
+# Vercel Deployment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This frontend is ready to deploy on Vercel.
 
-Currently, two official plugins are available:
+## Required setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Push the repository to GitHub.
+2. Import the repo into Vercel.
+3. Set the project root directory to `prot-refine-ai/frontend`.
+4. Add this environment variable in Vercel:
 
-## React Compiler
+```bash
+VITE_API_BASE_URL=https://your-backend-domain.com
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+5. Leave the build command as `npm run build`.
+6. Leave the output directory as `dist`.
 
-## Expanding the ESLint configuration
+## Important note
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Vercel will host only the React frontend. The FastAPI backend must be deployed separately on Render, Railway, or another Python host, and the frontend must point to that backend URL through `VITE_API_BASE_URL`.
+
+## Local preview
+
+```bash
+npm install
+npm run build
+npm run preview
+```
